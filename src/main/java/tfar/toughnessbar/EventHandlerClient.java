@@ -28,12 +28,16 @@ public class EventHandlerClient {
 
   static IGuiOverlay ingameOverlay = EventHandlerClient::onRenderArmorToughnessEvent;
 
+  @SuppressWarnings("resource")
   public static void onRenderArmorToughnessEvent(ForgeGui gui, GuiGraphics matrices, float partialTick, int width,
       int height) {
     if (mc.getCameraEntity() instanceof LivingEntity viewEntity) {
 
-      @SuppressWarnings("null")
       int armorToughness = Mth.floor(viewEntity.getAttribute(Attributes.ARMOR_TOUGHNESS).getValue());
+
+      if (!gui.getMinecraft().gameMode.canHurtPlayer()) {
+        return;
+      }
       if (armorToughness < 1) {
         return;
       }
