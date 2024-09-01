@@ -17,7 +17,7 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 //apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 
 
-version = "${mc_version}-8"
+version = "${mc_version}-9"
 group = 'com.tfar.toughnessbar' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'toughnessbar'
 
