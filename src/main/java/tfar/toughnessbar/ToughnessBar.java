@@ -23,7 +23,8 @@ public class ToughnessBar {
 
   public ToughnessBar() {
     if (FMLEnvironment.dist == Dist.CLIENT) {
-      ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, ()->new IExtensionPoint.DisplayTest(()->"ANY", (remote, isServer)-> true));
+      ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class,
+          () -> new IExtensionPoint.DisplayTest(() -> "ANY", (remote, isServer) -> true));
       FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
       ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ToughnessBarConfig.CLIENT_SPEC);
     } else {
@@ -32,7 +33,7 @@ public class ToughnessBar {
   }
 
   public void setup(RegisterGuiOverlaysEvent event) {
-    event.registerBelow(VanillaGuiOverlay.CHAT_PANEL.id(),"armor_toughness", EventHandlerClient.ingameOverlay);
+    event.registerAbove(VanillaGuiOverlay.FOOD_LEVEL.id(), "armor_toughness", EventHandlerClient.ingameOverlay);
   }
 
   public static class ToughnessBarConfig {
@@ -53,13 +54,15 @@ public class ToughnessBar {
       ClientConfig(ForgeConfigSpec.Builder builder) {
         builder.push("general");
         colorValues = builder
-                .comment("Toughness Bar Icon Colors")
-                .translation("text.toughnessbar.config.colorvalues")
-                .defineList("color values", Lists.newArrayList("#FFFFFF", "#FF5500", "#FFC747", "#27FFE3", "#00FF00", "#7F00FF"), String.class::isInstance);
+            .comment("Toughness Bar Icon Colors")
+            .translation("text.toughnessbar.config.colorvalues")
+            .defineList("color values",
+                Lists.newArrayList("#FFFFFF", "#FF5500", "#FFC747", "#27FFE3", "#00FF00", "#7F00FF"),
+                String.class::isInstance);
         empty = builder
-                .comment("Show empty armor toughness icons?")
-                .translation("text.toughnessbar.config.showemptyarmortoughnessicons")
-                .define("Show empty icons", false);
+            .comment("Show empty armor toughness icons?")
+            .translation("text.toughnessbar.config.showemptyarmortoughnessicons")
+            .define("Show empty icons", false);
         builder.pop();
       }
     }
